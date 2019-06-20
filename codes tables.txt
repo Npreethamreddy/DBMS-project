@@ -1,0 +1,109 @@
+CREATE TABLE Bill
+(
+  Bill_date DATETIME NOT NULL,
+  Order_id INT NOT NULL,
+  Bill_id INT NOT NULL,
+  Amount INT NOT NULL,
+  Discount INT NOT NULL,
+  PRIMARY KEY (Bill_id)
+);
+
+CREATE TABLE Account_details
+(
+  Card_holder VARCHAR(50) NOT NULL,
+  Expiry_date DATE NOT NULL,
+  Account_id INT NOT NULL,
+  CVV INT NOT NULL,
+  PRIMARY KEY (Account_id)
+);
+
+CREATE TABLE Owner
+(
+  Owner_id INT NOT NULL,
+  Contact INT NOT NULL,
+  Restaurant_name VARCHAR(50) NOT NULL,
+  First_name VARCHAR(50) NOT NULL,
+  Last_name VARCHAR(50) NOT NULL,
+  PRIMARY KEY (Owner_id)
+);
+
+CREATE TABLE Table_status
+(
+  Table_id INT NOT NULL,
+  Status VARCHAR(50) NOT NULL,
+  PRIMARY KEY (Table_id)
+);
+
+CREATE TABLE Restaurant
+(
+  Details VARCHAR(50) NOT NULL,
+  Location VARCHAR(50) NOT NULL,
+  Restaurant_name VARCHAR(50) NOT NULL,
+  Contact INT NOT NULL,
+  Opening_time&_closing_time DATETIME NOT NULL,
+  Restaurant_id INT NOT NULL,
+  Owner_id INT NOT NULL,
+  PRIMARY KEY (Restaurant_id),
+  FOREIGN KEY (Owner_id) REFERENCES Owner(Owner_id)
+);
+
+CREATE TABLE Manager
+(
+  Contact INT NOT NULL,
+  Address VARCHAR(50) NOT NULL,
+  Last_name VARCHAR(50) NOT NULL,
+  First_name VARCHAR(50) NOT NULL,
+  Manager_id INT NOT NULL,
+  Restaurant_id INT NOT NULL,
+  PRIMARY KEY (Manager_id),
+  FOREIGN KEY (Restaurant_id) REFERENCES Restaurant(Restaurant_id)
+);
+
+CREATE TABLE Customer
+(
+  Customer_id INT NOT NULL,
+  Phone_no INT NOT NULL,
+  Email_id VARCHAR(50) NOT NULL,
+  First_name VARCHAR(50) NOT NULL,
+  Last_name VARCHAR(50) NOT NULL,
+  Restaurant_id INT NOT NULL,
+  Table_id INT NOT NULL,
+  Account_id INT NOT NULL,
+  Bill_id INT NOT NULL,
+  PRIMARY KEY (Customer_id),
+  FOREIGN KEY (Restaurant_id) REFERENCES Restaurant(Restaurant_id),
+  FOREIGN KEY (Table_id) REFERENCES Table_status(Table_id),
+  FOREIGN KEY (Account_id) REFERENCES Account_details(Account_id),
+  FOREIGN KEY (Bill_id) REFERENCES Bill(Bill_id)
+);
+
+CREATE TABLE Order
+(
+  Order_date DATETIME NOT NULL,
+  order_id INT NOT NULL,
+  Price INT NOT NULL,
+  Restaurant_id INT NOT NULL,
+  PRIMARY KEY (order_id),
+  FOREIGN KEY (Restaurant_id) REFERENCES Restaurant(Restaurant_id)
+);
+
+CREATE TABLE Table
+(
+  Details VARCHAR(50) NOT NULL,
+  Table_no INT NOT NULL,
+  Customer_id INT NOT NULL,
+  PRIMARY KEY (Table_no),
+  FOREIGN KEY (Customer_id) REFERENCES Customer(Customer_id)
+);
+
+CREATE TABLE Menu
+(
+  Menu_id INT NOT NULL,
+  Type INT NOT NULL,
+  Category INT NOT NULL,
+  Item_name VARCHAR(50) NOT NULL,
+  Price INT NOT NULL,
+  Customer_id INT NOT NULL,
+  PRIMARY KEY (Menu_id),
+  FOREIGN KEY (Customer_id) REFERENCES Customer(Customer_id)
+);

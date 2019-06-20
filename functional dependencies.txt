@@ -1,0 +1,53 @@
+Order
+Order_id Primary key
+order_id -> Customer_id
+Order_id->Bill_id
+Order_id->order_date
+
+Bill
+bill_id Primary key 
+Order foreign key references order(order_id)
+bill_id-> Customer_id
+Bill_id->price
+Bill_id_bill_date
+
+Owner
+Owner_id primary_key
+Owner_id->Restaurant_name
+Owner_id->Contact
+Owner_id->Adderss
+
+Account_details
+Account_id primary key
+Account_id->customer_name
+
+Restaurant 
+Restaurant_name primary key
+Restaurant_name->Owner_id
+Restaurant_name->location
+Restaurant_name->contact
+Restaurant_name->Manager_id
+
+Menu
+Menu_id primary key
+Menu_id->Customer_id
+Menu_id->item_name
+Menu_id->Table_id
+
+Table_status
+Table_id primary key
+Table_id->Table_no
+Table_id->customer_id
+
+Manager
+Manager_id primary key
+Manager_id->Manager_name
+Manager_id->Contact
+Manager_id->Restaurant_name
+
+Customer
+Customer_id primary key
+customer_id->Menu_id
+Customer_id->Customer_name
+Customer_id->contact
+Customer_id->Table_id
